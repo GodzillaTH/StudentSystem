@@ -1,36 +1,130 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>ระบบค้นหาห้องเรียนสำหรับนักศึกษาใหม่</title>
-    <link rel="icon" href="https://img5.pic.in.th/file/secure-sv1/4ba0c364-a331-4886-b8d0-a4e13bf63bbd.png" type="image/png">
-    <style>
-        body, html {
-            margin: 0; padding: 0; height: 100%; overflow: hidden;
-            background-color: #f0f4f8;
-        }
-        iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
-        }
-        /* ตกแต่งหน้าโหลดระหว่างรอ */
-        .loading {
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            font-family: sans-serif; color: #4f46e5; font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="loading">กำลังเข้าสู่ระบบค้นหา...</div>
-    
-    <!-- เปลี่ยน URL ด้านล่างเป็นลิงก์ที่คุณได้จากการ Deploy ใหม่ล่าสุด -->
-    <iframe src="https://script.google.com/macros/s/AKfycbwEd_YerwqPCVp1Qno0AyLf2KL0RVWL_E2qFvutOXiE3mVXznWlnsCIP1g6Xa1wzfS7/exec"></iframe>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script>
-        // ซ่อนข้อความ Loading เมื่อ Iframe โหลดเสร็จ
-        document.querySelector('iframe').onload = function() {
-            document.querySelector('.loading').style.display = 'none';
-        };
-    </script>
+<title>ระบบค้นหาห้องเรียนสำหรับนักศึกษาใหม่</title>
+
+<link rel="icon" href="https://img5.pic.in.th/file/secure-sv1/4ba0c364-a331-4886-b8d0-a4e13bf63bbd.png" type="image/png">
+
+<!-- ช่วยเรื่อง Cache -->
+<meta http-equiv="Cache-Control" content="max-age=86400">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#f4f7fb;
+    font-family:Tahoma, sans-serif;
+}
+
+/* Loading Screen */
+#loading{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:white;
+    z-index:9999;
+    transition:opacity .4s ease;
+}
+
+/* Spinner */
+.spinner{
+    width:55px;
+    height:55px;
+    border:5px solid #e5e7eb;
+    border-top:5px solid #4f46e5;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:18px;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+.loading-text{
+    color:#4f46e5;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* Iframe */
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    background:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loading -->
+<div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">
+        กำลังเข้าสู่ระบบค้นหาห้องเรียน...
+    </div>
+</div>
+
+<!-- Apps Script -->
+<iframe
+    id="appFrame"
+    loading="lazy"
+    referrerpolicy="no-referrer"
+    src="https://script.google.com/macros/s/AKfycbwEd_YerwqPCVp1Qno0AyLf2KL0RVWL_E2qFvutOXiE3mVXznWlnsCIP1g6Xa1wzfS7/exec">
+</iframe>
+
+<script>
+const iframe = document.getElementById('appFrame');
+const loading = document.getElementById('loading');
+
+/* ซ่อน Loading เมื่อโหลดเสร็จ */
+iframe.addEventListener('load', () => {
+
+    loading.style.opacity = '0';
+
+    setTimeout(() => {
+        loading.style.display = 'none';
+    }, 400);
+
+});
+
+/* กัน iframe โหลดนานเกิน */
+setTimeout(() => {
+
+    loading.innerHTML = `
+        <div style="
+            text-align:center;
+            padding:20px;
+            color:#dc2626;
+            font-size:16px;
+        ">
+            ระบบกำลังใช้เวลานานกว่าปกติ<br><br>
+            กรุณารอสักครู่...
+        </div>
+    `;
+
+}, 12000);
+</script>
+
 </body>
 </html>
