@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
-   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>ระบบค้นหาห้องเรียนสำหรับนักศึกษาใหม่</title>
-   <link rel="icon" href="https://img5.pic.in.th/file/secure-sv1/4ba0c364-a331-4886-b8d0-a4e13bf63bbd.png" type="image/png">
-      <body>
-      <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" src="https://script.google.com/macros/s/AKfycbxduJr58SYXm-g0d0SMyPBxSA069XAFQ93HpTCmEKILY_7XiQ8-W8NixAoj7J6lEnpe/exec"></iframe>
-   </body>
+    <link rel="icon" href="https://img5.pic.in.th/file/secure-sv1/4ba0c364-a331-4886-b8d0-a4e13bf63bbd.png" type="image/png">
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%; overflow: hidden;
+            background-color: #f0f4f8;
+        }
+        iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+        /* ตกแต่งหน้าโหลดระหว่างรอ */
+        .loading {
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+            font-family: sans-serif; color: #4f46e5; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">กำลังเข้าสู่ระบบค้นหา...</div>
+    
+    <!-- เปลี่ยน URL ด้านล่างเป็นลิงก์ที่คุณได้จากการ Deploy ใหม่ล่าสุด -->
+    <iframe src="hhttps://script.google.com/macros/s/AKfycbx8O4UHQxv2xYI8lh-lBC3aFNS_8CQcK87fc-2H6f_9LTpX-1yHnIN-bg_cM-BdxKDz/exec"></iframe>
+
+    <script>
+        // ซ่อนข้อความ Loading เมื่อ Iframe โหลดเสร็จ
+        document.querySelector('iframe').onload = function() {
+            document.querySelector('.loading').style.display = 'none';
+        };
+    </script>
+</body>
 </html>
